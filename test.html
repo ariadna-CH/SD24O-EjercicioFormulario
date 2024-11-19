@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{margin:10px;}
+    </style>
+</head>
+<body>
+    
+    <form method="post" action="http://localhost:8000/usuarios" enctype="multipart/form-data"> 
+    
+    <!-- <form method="post" action="http://localhost:8000/fotos">-->
+        <div>Nombre:<input type="text" name="nombre" /></div>        
+        <div>Dirección:<input type="text" name="direccion" /></div>
+        <div>Foto<input type="file" name="foto" /></div>
+        <label for="vip">¿Es VIP?</label>
+        <input type="checkbox" id="vip" name="vip">
+        <div><input type="submit" value="Registrar" /></div>
+        
+    </form>
+</body>
+</html>
