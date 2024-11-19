@@ -12,10 +12,9 @@ async def registro_usuario(nombre: str = Form(...),direccion: str = Form(...),fo
     print(f"Dirección: {direccion}")
     print(f"Es VIP: {vip}")
 
-    #Directorio base del usuario
+    #Es el directorio base del usuario
     home_usuario = Path.home()
-
-    #Definir carpetas para VIP y no VIP
+    #Se define las carpetas para VIP y no VIP
     usuario_vip = home_usuario / "fotos-usuarios-vip"
     usuario_no_vip = home_usuario / "fotos-usuarios"
 
@@ -23,20 +22,18 @@ async def registro_usuario(nombre: str = Form(...),direccion: str = Form(...),fo
     #usuario_vip.mkdir(parents=True, exist_ok=True)
     #usuario_no_vip.mkdir(parents=True, exist_ok=True)
 
-    #Generar nombre único para el archivo
+    #Genera nombre único para el archivo
     nombre_archivo = f"{uuid.uuid4()}{Path(foto.filename).suffix}"
+    #Selecciona la ruta de la imagen si es VIP o no
+    ruta_carpeta_fotos = usuario_vip if vip else usuario_no_vip
+    ruta_imagen = ruta_carpeta_fotos / nombre_archivo
 
-    #Seleccionar carpeta de destino
-    ruta_carpeta = usuario_vip if vip else usuario_no_vip
-    ruta_imagen = ruta_carpeta / nombre_archivo
-
-    #Guardar el archivo
+    #Guarda el archivo fotos
     print(f"Guardando la foto en: {ruta_imagen}")
     contenido = await foto.read()  # Leer el contenido del archivo
     with ruta_imagen.open("wb") as imagen:
         imagen.write(contenido)
 
-    #Respuesta
     respuesta = {
         "Nombre": nombre,
         "Dirección": direccion,
